@@ -73,8 +73,8 @@ jobs:
     # 步骤 3: 安装依赖并构建
     - name: Install & Build
       run: |
-        pnpm install
-        pnpm run docs:build
+        npm install
+        npm run docs:build
 
     # 步骤 4: 部署到当前仓库的 gh-pages 分支
     - name: Deploy
