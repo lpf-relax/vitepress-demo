@@ -3,6 +3,7 @@
 # on:
 #   push:
 #     branches: [ "main" ] # 触发分支
+、
 
 # jobs:
 #   build-and-deploy:
@@ -52,6 +53,12 @@ name: Build and Deploy Vitepress
 on:
   push:
     branches: [ "main" ]
+
+# 显式声明权限
+permissions:
+  contents: write  # 允许向仓库写入内容
+  pages: write     # 允许操作 GitHub Pages
+  id-token: read   # 允许 OIDC 认证
 
 jobs:
   deploy:
