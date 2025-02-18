@@ -1,0 +1,86 @@
+# name: Build and Deploy Vitepress
+
+# on:
+#   push:
+#     branches: [ "main" ] # 触发分支
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     # 步骤 1: 检出源代码
+#     - name: Checkout source repo
+#       uses: actions/checkout@v4
+#       with:
+#         fetch-depth: 0
+
+#     # 步骤 2: 设置 Node.js 环境
+#     - name: Use Node.js
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: '20'
+
+#     # 步骤 3: 安装依赖并构建
+#     - name: Install and Build
+#       run: |
+#         npm install
+#         npm run build # 确保你的 package.json 中有 build 脚本
+
+#     # 步骤 4: 配置目标仓库
+#     - name: Configure target repo
+#       run: |
+#         git config --global user.name "GitHub Actions"
+#         git config --global user.email "actions@github.com"
+
+#     # 步骤 5: 部署到目标仓库
+#     - name: Deploy to target repo
+#       uses: JamesIves/github-pages-deploy-action@v4
+#       with:
+#         token: ${{ secrets.DEPLOY_TOKEN }} # 需要预先设置的 secret
+#         repository-name: lpf-relax/lpf-relax.github.io # 目标仓库
+#         branch: gh-pages # 目标分支
+#         folder: dist # Vitepress 默认输出目录
+#         clean: true # 清理目标分支历史
+#         force: true # 强制推送
+
+# 如果不需要跨仓库推送，而是推送到 同一个仓库的不同分支（例如将构建产物推送到 gh-pages 分支），
+# 可以直接使用 GitHub 内置的 GITHUB_TOKEN 权限
+
+name: Build and Deploy Vitepress
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 步骤 1: 检出代码
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # 步骤 2: 设置 Node.js
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # 步骤 3: 安装依赖并构建
+    - name: Install & Build
+      run: |
+        pnpm install
+        pnpm run docs:build
+
+    # 步骤 4: 部署到当前仓库的 gh-pages 分支
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }} # 自动生成的权限令牌
+        publish_dir: ./.vitepress/dist # 构建输出目录
+        publish_branch: gh-pages # 目标分支
+        force_orphan: true # 保持目标分支干净
