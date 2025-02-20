@@ -4,9 +4,11 @@ import { withPwa } from "@vite-pwa/vitepress";
 
 export default withPwa(
   defineConfig({
+    base: '/vitepress/',
     title: "My Awesome Project",
     description: "A VitePress Site",
     srcDir: "src",
+    
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
