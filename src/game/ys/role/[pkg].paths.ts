@@ -1,11 +1,18 @@
+// import { ysApi } from "@server/ys-api";
+import { ysApi } from "../../../../server/ys-api"
+
 export default {
-    async paths() {
-  
-      return new Array(10).fill(0).map((item, index) => {
-        return {
-          params: { id: index },
-          content: `post.content_${index}` // 原始 Markdown 或 HTML
+  async paths() {
+    const res = await ysApi.role;
+    
+    return res.map((role) => {
+      return {
+        params: {
+          pkg: role.id,
+          list: res,
+          data: role
         }
-      })
-    }
+      }
+    })
   }
+}

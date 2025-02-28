@@ -1,14 +1,35 @@
 // https://vitepress.dev/reference/site-config
 import { defineConfig } from "vitepress";
 import { withPwa } from "@vite-pwa/vitepress";
+import path from 'path';
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default withPwa(
   defineConfig({
+    vite: {
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, '../src'),
+          '@server': path.resolve(__dirname, '../server'),
+          '@utils': path.resolve(__dirname, '../utils'),
+        }
+      },
+      plugins: [
+        AutoImport({
+          resolvers: [ElementPlusResolver()],
+        }),
+        Components({
+          resolvers: [ElementPlusResolver()],
+        }),
+      ]
+    },
     base: '/vitepress/',
     title: "My Awesome Project",
     description: "A VitePress Site",
     srcDir: "src",
-    
+
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
@@ -17,20 +38,17 @@ export default withPwa(
         { text: "原神", link: "/game/ys" },
       ],
 
-      // sidebar: [
-      //   {
-      //     text: 'Examples',
-      //     items: [
-      //       { text: 'Markdown Examples', link: '/markdown-examples' },
-      //       { text: 'Runtime API Examples', link: '/api-examples' }
-      //     ]
-      //   }
-      // ],
-
       sidebar: {
         "/game/ys": [
           {
             text: "原神",
+            link: '/game/ys.html',
+            items: [
+              {
+                text: '角色',
+                link: '/game/ys/role'
+              }
+            ]
           },
         ],
       },

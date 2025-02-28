@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@server/*": [
+        "server/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
+    },
+    // 可以在这里添加或覆盖其他编译器选项
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "server/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ]
+}
