@@ -19,6 +19,8 @@ const handleClickRandom = async() => {
   const randomId  = roleList[randomIndex].id;
 
   const pathList = route.path.split('/')
+  pathList.pop()
+  pathList.push('role')
   pathList.push(`${randomId}.html`)
 
   const newUrl = pathList.join('/')
