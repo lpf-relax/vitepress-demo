@@ -5,6 +5,7 @@ import path from 'path';
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import tailwindcss from '@tailwindcss/vite'
 
 export default withPwa(
   defineConfig({
@@ -14,9 +15,12 @@ export default withPwa(
           '@': path.resolve(__dirname, '../src'),
           '@server': path.resolve(__dirname, '../server'),
           '@utils': path.resolve(__dirname, '../utils'),
+          '@data': path.resolve(__dirname, '../data'),
+          '@hooks': path.resolve(__dirname, '../hooks'),
         }
       },
       plugins: [
+        tailwindcss(),
         AutoImport({
           resolvers: [ElementPlusResolver()],
         }),

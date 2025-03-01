@@ -10,17 +10,27 @@
       ],
       "@utils/*": [
         "utils/*"
+      ],
+      "@data/*": [
+        "data/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
       ]
     },
     // 可以在这里添加或覆盖其他编译器选项
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "target": "ESNext",
+    "module": "NodeNext",
+    "resolveJsonModule": true
   },
   "include": [
     "server/**/*.ts",
     "src/**/*.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "server/ys/getYsRoleList.js"
   ]
 }

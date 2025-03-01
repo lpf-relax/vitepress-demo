@@ -1,15 +1,13 @@
-// import { ysApi } from "@server/ys-api";
-import { ysApi } from "../../../../server/ys-api"
+import roleList from '../../../../data/ys/role/server.json' with { type: "json" };
 
 export default {
   async paths() {
-    const res = await ysApi.role;
-    
-    return res.map((role) => {
+
+    return roleList.map((role) => {
       return {
         params: {
           pkg: role.id,
-          list: res,
+          list: roleList,
           data: role
         }
       }
