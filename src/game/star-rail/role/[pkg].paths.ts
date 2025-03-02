@@ -1,4 +1,4 @@
-import roleList from '../../../../data/ys/role/server.json' with { type: "json" };
+import roleList from '../../../../data/starRail/role/server.json' with { type: "json" };
 
 export default {
   async paths() {
@@ -11,8 +11,8 @@ export default {
           pkg: role.id,
           idList,
           data: role,
-          favModalLocalKey: 'vitepress_game_ys_role_fav_modal',
-          favLocalKey: 'vitepress_game_ys_role_fav',
+          favModalLocalKey: 'vitepress_game_star_rail_role_fav_modal',
+          favLocalKey: 'vitepress_game_star_rail_role_fav',
         }
       }
     })

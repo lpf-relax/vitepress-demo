@@ -72,11 +72,11 @@ export const getYsRoleList = async () => {
       name: role.title,
       summary: role.summary,
       icon: role.icon,
+      attrs: attrInfo,
       avatar: {
         m: details?.avatar_m,
         pc: details?.avatar_pc,
       },
-      attrs: attrInfo,
       destiny: getDestinyInfo(roleDetails),
       skill: getSkillInfo(roleDetails),
     })

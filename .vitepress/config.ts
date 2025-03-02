@@ -39,11 +39,11 @@ export default withPwa(
       nav: [
         { text: "Home", link: "/" },
         { text: "Examples", link: "/markdown-examples" },
-        { text: "原神", link: "/game/ys" },
+        { text: "game", link: "/game" },
       ],
 
       sidebar: {
-        "/game/ys": [
+        "/game/": [
           {
             text: "原神",
             link: '/game/ys.html',
@@ -51,6 +51,26 @@ export default withPwa(
               {
                 text: '角色',
                 link: '/game/ys/role'
+              }
+            ]
+          },
+          {
+            text: "绝区零",
+            link: '/game/zzz.html',
+            items: [
+              {
+                text: '角色',
+                link: '/game/zzz/role'
+              }
+            ]
+          },
+          {
+            text: "星穹铁道",
+            link: '/game/star-rail.html',
+            items: [
+              {
+                text: '角色',
+                link: '/game/star-rail/role'
               }
             ]
           },

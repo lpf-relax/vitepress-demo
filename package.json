@@ -14,11 +14,14 @@
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
-    "data:ys": "node  ./server/ys/index.js"
+    "data:ys": "node ./server/ys/index.js",
+    "data:zzz": "node ./server/zzz/index.js",
+    "data:star-rail": "node ./server/starRail/index.js"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@vite-pwa/vitepress": "^0.5.3",
+    "cheerio": "^1.0.0",
     "element-plus": "^2.9.4",
     "lodash": "^4.17.21",
     "vite": "^6.2.0",

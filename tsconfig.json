@@ -31,6 +31,8 @@
     "server/**/*.ts",
     "src/**/*.ts",
     "src/**/*.vue",
-    "server/ys/getYsRoleList.js"
+    "server/ys/getYsRoleList.js",
+    ".vitepress/theme/components/**/*.ts",
+    ".vitepress/theme/components/**/*.vue",
   ]
 }
