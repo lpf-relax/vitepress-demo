@@ -1,1 +1,1 @@
-export { usePkgIndex } from './usePkgIndex'
+export { usePkgId } from './usePkgId'

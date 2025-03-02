@@ -5,7 +5,8 @@ import './style.css'
 
 import HideSpan from './components/HideSpan/index.vue'
 import HideDiv from './components/HideDiv/index.vue'
-import { ElButton, ElButtonGroup, ElSpace, ElImage, ElText, ElRow, ElCol, ElAffix } from 'element-plus'
+import { ElButton, ElButtonGroup, ElSpace, ElImage, ElText, ElRow, ElCol, ElAffix, ElSwitch, ElIcon } from 'element-plus'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 export default {
   extends: DefaultTheme,
@@ -13,6 +14,10 @@ export default {
     // 注册自定义全局组件
     app.component('ViHideSpan', HideSpan)
     app.component('ViHideDiv', HideDiv)
+
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component)
+    }
 
     app.component('ElButton', ElButton)
     app.component('ElButtonGroup', ElButtonGroup)
@@ -22,5 +27,7 @@ export default {
     app.component('ElRow', ElRow)
     app.component('ElCol', ElCol)
     app.component('ElAffix', ElAffix)
+    app.component('ElSwitch', ElSwitch)
+    app.component('ElIcon', ElIcon)
   }
 } satisfies Theme

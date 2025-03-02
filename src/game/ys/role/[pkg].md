@@ -1,32 +1,76 @@
 <script setup>
-import { computed } from "vue"
+import { ref, computed, watch } from "vue"
 import { useData, useRouter } from 'vitepress'
-import { getOtherPkgPath, getArrayRandomItem } from "@utils"
-import {usePkgIndex} from '@hooks'
+import { StarFilled, Star } from '@element-plus/icons-vue'
+
+import { getOtherPkgPath, getArrayRandomItem, safeJsonParse } from "@utils"
+import {usePkgId} from '@hooks'
 
 // params 是一个 Vue ref
 const { params } = useData();
 const { route, go } = useRouter();
-const pkgIndex = usePkgIndex(params.value.idList, params.value.idList.findIndex(item => item === params.value.data.id))
 
-const imageUrl = computed(() => params.value.data?.avatar?.m || params.value.data.icon)
+const favModalLocalKey = "vitepress_game_ys_role_fav_modal"
+const favLocalKey = 'vitepress_game_ys_role_fav'
+const isFavModal = ref(safeJsonParse(localStorage.getItem(favModalLocalKey), false) || false)
+
+const getFavIdListFromLocal = () => {
+  const localFavIdList = safeJsonParse(localStorage.getItem(favLocalKey), [])
+  return Array.isArray(localFavIdList) ? localFavIdList : []
+}
+
+const roleId = params.value.data.id
+const roleInfo = params.value.data
+const roleIdList = params.value.idList
+
+const idList = ref(roleIdList);
+
+const favIdList = ref(getFavIdListFromLocal())
+const isFav = computed(() => favIdList.value.some(item => item === roleId))
+
+const pkgId = usePkgId(idList, roleId)
+
+const handleToggleFav = () => {
+  const localFavIdList = getFavIdListFromLocal()
+  if (localFavIdList.some(item => item === roleId)) {
+    favIdList.value = localFavIdList.filter
+  } else {
+    favIdList.value = [...localFavIdList, roleId]
+  }
+  if (isFavModal.value) {
+    idList.value = favIdList.value
+  }
+}
+
+watch(isFavModal, async (newValue, oldValue) => {
+  if (newValue) {
+    favIdList.value = getFavIdListFromLocal()
+    idList.value = favIdList.value
+  } else {
+    idList.value = roleIdList
+  }
+  localStorage.setItem(favModalLocalKey, JSON.stringify(newValue))
+}, { immediate: true })
+
+
+const imageUrl = computed(() => roleInfo?.avatar?.m || roleInfo.icon)
 const imagesInfo = computed(() => {
   return {
-    icon: params.value.data.icon,
-    bg: params.value.data?.avatar?.m || params.value.data.icon,
-    list: [params.value.data?.avatar?.m, params.value.data.icon].filter(Boolean)
+    icon: roleInfo.icon,
+    bg: roleInfo?.avatar?.m || roleInfo.icon,
+    list: [roleInfo?.avatar?.m, roleInfo.icon].filter(Boolean)
   }
 })
 
-console.log('params.value', params)
-
 const handleClickRandom = () => {
-  go(getOtherPkgPath(route.path, getArrayRandomItem(params.value.idList)))
+  go(getOtherPkgPath(route.path, getArrayRandomItem(idList.value)))
 }
-const handleClickBtn = (index) => {
-  go(getOtherPkgPath(route.path, params.value.idList[index]))
+const handleClickBtn = (id) => {
+  go(getOtherPkgPath(route.path, id))
 }
 </script>
+
+
 
 <div id="pkg-wrap" class="max-w-lg mx-auto bg-contain" :style="{backgroundImage: `url(${imagesInfo.bg})`}">
   <el-space class="w-full px-4 py-8 backdrop-blur-lg" direction="vertical" alignment="normal" >
@@ -39,6 +83,7 @@ const handleClickBtn = (index) => {
         :min-scale="0.2"
         :preview-src-list="imagesInfo.list"
         show-progress
+        preview-teleported
         fit="cover"
       />
     </div>
@@ -76,7 +121,7 @@ const handleClickBtn = (index) => {
     <!--  -->
     <template v-if="params.data.destiny">
       <div class="rounded-xs flex bg-neutral-100/70 mb-3 p-1.5 my-8 justify-center">
-          <b>命之座</b>
+          <h2>命之座</h2>
       </div>
       <div class="flex flex-wrap justify-between">
         <div v-for="item in params.data.destiny" class="rounded-xs bg-neutral-100/70 mb-3 w-full">
@@ -89,17 +134,31 @@ const handleClickBtn = (index) => {
         </div>
       </div>
     </template>
-    <!--  -->
-    <el-affix :offset="120">
-      <div class="flex items-center justify-center">
-        <el-button-group size="default">
-          <el-button type="primary" @click="handleClickBtn(pkgIndex.first)">首</el-button>
-          <el-button type="primary" @click="handleClickBtn(pkgIndex.prev)" :disabled="pkgIndex.prev === pkgIndex.current">上一个</el-button>
-          <el-button type="primary" @click="handleClickRandom">随机</el-button>
-          <el-button type="primary" @click="handleClickBtn(pkgIndex.next)" :disabled="pkgIndex.next === pkgIndex.current">下一个</el-button>
-          <el-button type="primary" @click="handleClickBtn(pkgIndex.last)">尾</el-button>
-        </el-button-group>
-      </div>
-    </el-affix>
   </el-space>
 </div>
+
+<el-affix target="body" position="bottom" :offset="32">
+  <div class="flex items-center justify-center pt-8">
+    <el-button-group size="default">
+      <el-button type="primary" @click="handleClickBtn(pkgId.first)" :disabled="!pkgId.first">首</el-button>
+      <el-button type="primary" @click="handleClickBtn(pkgId.prev)" :disabled="!pkgId.prev">上一个</el-button>
+      <el-button type="primary" @click="handleClickRandom" :disabled="!idList.length">随机</el-button>
+      <el-button type="primary" @click="handleClickBtn(pkgId.next)" :disabled="!pkgId.next">下一个</el-button>
+      <el-button type="primary" @click="handleClickBtn(pkgId.last)" :disabled="!pkgId.last">尾</el-button>
+      <el-button type="primary">
+        <el-icon class="w-4" @click="handleToggleFav">
+          <StarFilled  v-if="isFav" />
+          <Star v-else />
+        </el-icon>
+      </el-button>
+      <el-button type="primary">
+        <el-switch
+          v-model="isFavModal"
+          inline-prompt
+          :active-icon="StarFilled"
+          :inactive-icon="Star"
+        />
+      </el-button>
+    </el-button-group>
+  </div>
+</el-affix>

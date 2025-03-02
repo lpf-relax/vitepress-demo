@@ -1,11 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 const props = defineProps(['activeClass', 'unActiveClass'])
-
 const isActive = ref(true)
-
-console.log(props, [isActive ? (props.activeClass || 'active') : props.unActiveClass])
-
 </script>
 
 <template>

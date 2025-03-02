@@ -17,6 +17,7 @@
     "data:ys": "node  ./server/ys/index.js"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@vite-pwa/vitepress": "^0.5.3",
     "element-plus": "^2.9.4",
     "lodash": "^4.17.21",

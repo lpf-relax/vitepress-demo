@@ -4,10 +4,12 @@ export default {
   async paths() {
 
     return roleList.map((role) => {
+      const idList = roleList.map(item => item.id)
+
       return {
         params: {
           pkg: role.id,
-          idList: roleList.map(item => item.id),
+          idList,
           data: role
         }
       }
