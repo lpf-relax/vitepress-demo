@@ -7,7 +7,7 @@ import {usePkgIndex} from '@hooks'
 // params 是一个 Vue ref
 const { params } = useData();
 const { route, go } = useRouter();
-const pkgIndex = usePkgIndex(params.value.list, params.value.pkg)
+const pkgIndex = usePkgIndex(params.value.idList, params.value.idList.findIndex(item => item === params.value.data.id))
 
 const imageUrl = computed(() => params.value.data?.avatar?.m || params.value.data.icon)
 const imagesInfo = computed(() => {
@@ -21,14 +21,14 @@ const imagesInfo = computed(() => {
 console.log('params.value', params)
 
 const handleClickRandom = () => {
-  go(getOtherPkgPath(route.path, getArrayRandomItem(params.value.list).id))
+  go(getOtherPkgPath(route.path, getArrayRandomItem(params.value.idList)))
 }
 const handleClickBtn = (index) => {
-  go(getOtherPkgPath(route.path, params.value.list[index].id))
+  go(getOtherPkgPath(route.path, params.value.idList[index]))
 }
 </script>
 
-<div class="max-w-lg mx-auto bg-no-repeat bg-cover" :style="{backgroundImage: `url(${imagesInfo.bg})`}">
+<div id="pkg-wrap" class="max-w-lg mx-auto bg-contain" :style="{backgroundImage: `url(${imagesInfo.bg})`}">
   <el-space class="w-full px-4 py-8 backdrop-blur-lg" direction="vertical" alignment="normal" >
     <div class="flex justify-center">
       <el-image
@@ -90,14 +90,16 @@ const handleClickBtn = (index) => {
       </div>
     </template>
     <!--  -->
-    <div class="flex items-center justify-center">
-      <el-button-group size="default">
-        <el-button type="primary" @click="handleClickBtn(pkgIndex.first)"><div class="px-2">首</div></el-button>
-        <el-button type="primary" @click="handleClickBtn(pkgIndex.prev)" :disabled="pkgIndex.prev === pkgIndex.current"><div class="px-2">上一个</div></el-button>
-        <el-button type="primary" @click="handleClickRandom"><div class="px-2">随机</div></el-button>
-        <el-button type="primary" @click="handleClickBtn(pkgIndex.next)" :disabled="pkgIndex.next === pkgIndex.current"><div class="px-2">下一个</div></el-button>
-        <el-button type="primary" @click="handleClickBtn(pkgIndex.last)"><div class="px-2">尾</div></el-button>
-      </el-button-group>
-    </div>
+    <el-affix :offset="120">
+      <div class="flex items-center justify-center">
+        <el-button-group size="default">
+          <el-button type="primary" @click="handleClickBtn(pkgIndex.first)">首</el-button>
+          <el-button type="primary" @click="handleClickBtn(pkgIndex.prev)" :disabled="pkgIndex.prev === pkgIndex.current">上一个</el-button>
+          <el-button type="primary" @click="handleClickRandom">随机</el-button>
+          <el-button type="primary" @click="handleClickBtn(pkgIndex.next)" :disabled="pkgIndex.next === pkgIndex.current">下一个</el-button>
+          <el-button type="primary" @click="handleClickBtn(pkgIndex.last)">尾</el-button>
+        </el-button-group>
+      </div>
+    </el-affix>
   </el-space>
 </div>

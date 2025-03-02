@@ -5,7 +5,7 @@ import './style.css'
 
 import HideSpan from './components/HideSpan/index.vue'
 import HideDiv from './components/HideDiv/index.vue'
-import { ElButton, ElButtonGroup, ElSpace, ElImage, ElText, ElRow, ElCol } from 'element-plus'
+import { ElButton, ElButtonGroup, ElSpace, ElImage, ElText, ElRow, ElCol, ElAffix } from 'element-plus'
 
 export default {
   extends: DefaultTheme,
@@ -21,5 +21,6 @@ export default {
     app.component('ElText', ElText)
     app.component('ElRow', ElRow)
     app.component('ElCol', ElCol)
+    app.component('ElAffix', ElAffix)
   }
 } satisfies Theme

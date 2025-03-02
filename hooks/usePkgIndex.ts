@@ -1,8 +1,7 @@
 import { computed } from "vue"
 
-export const usePkgIndex = (arr: { id: unknown }[], id: unknown) => {
+export const usePkgIndex = (arr: { id: unknown }[], currentIndex: number) => {
   return computed(() => {
-    const currentIndex = arr.findIndex(item => item.id === id)
     const firstIndex = 0;
     const lastIndex = arr.length - 1;
     const prevIndex = currentIndex === 0 ? 0 : currentIndex - 1;

@@ -7,7 +7,7 @@ export default {
       return {
         params: {
           pkg: role.id,
-          list: roleList,
+          idList: roleList.map(item => item.id),
           data: role
         }
       }
