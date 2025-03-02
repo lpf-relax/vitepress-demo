@@ -16,6 +16,9 @@
       ],
       "@hooks/*": [
         "hooks/*"
+      ],
+      "@components/*": [
+        "components/*"
       ]
     },
     // 可以在这里添加或覆盖其他编译器选项
@@ -28,10 +31,10 @@
     "resolveJsonModule": true
   },
   "include": [
-    "server/**/*.ts",
+    "components/**/*.ts",
+    "components/**/*.vue",
     "src/**/*.ts",
     "src/**/*.vue",
-    "server/ys/getYsRoleList.js",
     ".vitepress/theme/components/**/*.ts",
     ".vitepress/theme/components/**/*.vue",
   ]

@@ -17,6 +17,7 @@ export default withPwa(
           '@utils': path.resolve(__dirname, '../utils'),
           '@data': path.resolve(__dirname, '../data'),
           '@hooks': path.resolve(__dirname, '../hooks'),
+          '@components': path.resolve(__dirname, '../components'),
         }
       },
       plugins: [

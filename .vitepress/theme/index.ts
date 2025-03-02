@@ -5,7 +5,7 @@ import './style.css'
 
 import HideSpan from './components/HideSpan/index.vue'
 import HideDiv from './components/HideDiv/index.vue'
-import GameMihayoRole from './components/GameMihayoRole/index.vue'
+
 import { ElButton, ElButtonGroup, ElSpace, ElImage, ElText, ElRow, ElCol, ElAffix, ElSwitch, ElIcon } from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
@@ -15,7 +15,6 @@ export default {
     // 注册自定义全局组件
     app.component('ViHideSpan', HideSpan)
     app.component('ViHideDiv', HideDiv)
-    app.component('ViGameMihayoRole', GameMihayoRole)
 
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component)

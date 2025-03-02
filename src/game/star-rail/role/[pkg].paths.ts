@@ -5,16 +5,27 @@ export default {
 
     return roleList.map((role) => {
       const idList = roleList.map(item => item.id)
-
-      return {
-        params: {
-          pkg: role.id,
-          idList,
-          data: role,
-          favModalLocalKey: 'vitepress_game_star_rail_role_fav_modal',
-          favLocalKey: 'vitepress_game_star_rail_role_fav',
-        }
+      const baseInfo = {
+        idList,
+        data: role,
+        favModalLocalKey: 'vitepress_game_star_rail_role_fav_modal',
+        favLocalKey: 'vitepress_game_star_rail_role_fav',
       }
-    })
+
+      return [
+        {
+          params: {
+            pkg: role.id,
+            ...baseInfo,
+          }
+        },
+        {
+          params: {
+            pkg: role.name,
+            ...baseInfo,
+          }
+        }
+      ]
+    }).flat()
   }
 }

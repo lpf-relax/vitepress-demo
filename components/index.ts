@@ -1,0 +1,1 @@
+export { default as GameMihayoRole } from './GameMihayoRole/index.vue'
