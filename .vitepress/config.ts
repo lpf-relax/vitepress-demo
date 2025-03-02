@@ -18,6 +18,7 @@ export default withPwa(
           '@data': path.resolve(__dirname, '../data'),
           '@hooks': path.resolve(__dirname, '../hooks'),
           '@components': path.resolve(__dirname, '../components'),
+          '@assets': path.resolve(__dirname, '../assets'),
         }
       },
       plugins: [
@@ -52,6 +53,10 @@ export default withPwa(
               {
                 text: '角色',
                 link: '/game/ys/role'
+              },
+              {
+                text: '信息',
+                link: '/game/ys/info'
               }
             ]
           },
@@ -81,6 +86,10 @@ export default withPwa(
       socialLinks: [
         { icon: "github", link: "https://github.com/vuejs/vitepress" },
       ],
+
+      // search: {
+      //   provider: 'local'
+      // },
     },
 
     pwa: {
